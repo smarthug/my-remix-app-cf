@@ -1,14 +1,15 @@
-import type { ActionArgs, LoaderArgs } from "@remix-run/cloudflare";
 import { json } from "@remix-run/cloudflare";
 import { Form, useLoaderData } from "@remix-run/react";
 
 import { authenticator } from "~/auth.server";
 
-export const action = async ({ request }: ActionArgs) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const action = async ({ request }: any) => {
   await authenticator.logout(request, { redirectTo: "/" });
 };
 
-export const loader = async ({ request }: LoaderArgs) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const loader = async ({ request }: any) => {
   const { profile } = await authenticator.isAuthenticated(request, {
     failureRedirect: "/",
   });
