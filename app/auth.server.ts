@@ -5,6 +5,7 @@ import {
 import { Authenticator } from "remix-auth";
 import type { GitHubExtraParams, GitHubProfile } from "remix-auth-github";
 import { GitHubStrategy } from "remix-auth-github";
+import { FacebookStrategy } from "remix-auth-facebook";
 
 // if (!process.env.GITHUB_CLIENT_ID) {
 //   throw new Error("GITHUB_CLIENT_ID is required");
@@ -19,10 +20,6 @@ import { GitHubStrategy } from "remix-auth-github";
 // }
 
 // const BASE_URL = process.env.BASE_URL;
-
-let GITHUB_CLIENT_ID = "";
-let GITHUB_CLIENT_SECRET = "";
-let BASE_URL = "";
 
 // export const loader =
 //   async () =>
@@ -55,7 +52,7 @@ export const sessionStorage = createCookieSessionStorage({
 });
 
 export const authenticator = new Authenticator<{
-  profile: GitHubProfile;
+  profile: any;
   accessToken: string;
   extraParams: GitHubExtraParams;
 }>(sessionStorage);
@@ -75,9 +72,8 @@ export const authenticator = new Authenticator<{
 //   )
 // );
 
-
 export async function initAuth(env) {
-  console.log(env)
+  console.log(env);
   authenticator.use(
     new GitHubStrategy(
       {
@@ -86,7 +82,25 @@ export async function initAuth(env) {
         callbackURL: new URL("/auth/github/callback", env.BASE_URL).toString(),
       },
       async ({ profile, accessToken, extraParams }) => {
-        console.log("this is accesstoken");
+        // console.log("this is accesstoken");
+        // console.log(accessToken);
+        return { profile, accessToken, extraParams };
+      }
+    )
+  );
+
+  authenticator.use(
+    new FacebookStrategy(
+      {
+        clientID: env.FACEBOOK_CLIENT_ID,
+        clientSecret: env.FACEBOOK_CLIENT_SECRET,
+        callbackURL: new URL(
+          "/auth/facebook/callback",
+          env.BASE_URL
+        ).toString(),
+      },
+      async ({ profile, accessToken, extraParams }) => {
+        console.log("this is fb accesstoken");
         console.log(accessToken);
         return { profile, accessToken, extraParams };
       }

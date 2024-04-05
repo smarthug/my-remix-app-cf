@@ -37,8 +37,14 @@ export async function loader({ context }: LoaderFunctionArgs) {
 
 export default function Index() {
   return (
-    <Form action="/auth/github" method="post">
-      <button>Login with GitHub</button>
-    </Form>
+    <>
+      <Form action="/auth/github" method="post">
+        <button>Login with GitHub</button>
+      </Form>
+
+      <Form action="/auth/facebook" method="post">
+        <button>Login with Facebook</button>
+      </Form>
+    </>
   );
 }
