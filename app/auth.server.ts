@@ -5,7 +5,9 @@ import {
 import { Authenticator } from "remix-auth";
 import type { GitHubExtraParams, GitHubProfile } from "remix-auth-github";
 import { GitHubStrategy } from "remix-auth-github";
-import { FacebookStrategy } from "remix-auth-facebook";
+// import { FacebookStrategy } from "remix-auth-facebook";
+import { FacebookStrategy } from "~/utils/auth/facebook";
+console.log(FacebookStrategy);
 
 // if (!process.env.GITHUB_CLIENT_ID) {
 //   throw new Error("GITHUB_CLIENT_ID is required");

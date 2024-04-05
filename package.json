@@ -23,7 +23,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "remix-auth": "^3.6.0",
-    "remix-auth-facebook": "^1.0.1",
     "remix-auth-github": "^1.7.0",
     "remix-auth-oauth2": "^1.11.2"
   },
