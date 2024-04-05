@@ -1,8 +1,9 @@
 import { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { Form } from "@remix-run/react";
 
-import { authenticator } from "~/auth.server";
-import { GitHubStrategy } from "remix-auth-github";
+import { initAuth } from "~/auth.server";
+// import { authenticator } from "~/auth.server";
+// import { GitHubStrategy } from "remix-auth-github";
 
 // import { auth, sessionStorage } from "~/auth.server";
 
@@ -14,20 +15,22 @@ export async function loader({ context }: LoaderFunctionArgs) {
   // BASE_URL = context.env.BASE_URL;
   console.log(context.cloudflare.env);
 
-  authenticator.use(
-    new GitHubStrategy(
-      {
-        clientID: context.cloudflare.env.GITHUB_CLIENT_ID,
-        clientSecret: context.cloudflare.env.GITHUB_CLIENT_SECRET,
-        callbackURL: new URL("/auth/github/callback", context.cloudflare.env.BASE_URL).toString(),
-      },
-      async ({ profile, accessToken, extraParams }) => {
-        console.log("this is accesstoken");
-        console.log(accessToken);
-        return { profile, accessToken, extraParams };
-      }
-    )
-  );
+  // authenticator.use(
+  //   new GitHubStrategy(
+  //     {
+  //       clientID: context.cloudflare.env.GITHUB_CLIENT_ID,
+  //       clientSecret: context.cloudflare.env.GITHUB_CLIENT_SECRET,
+  //       callbackURL: new URL("/auth/github/callback", context.cloudflare.env.BASE_URL).toString(),
+  //     },
+  //     async ({ profile, accessToken, extraParams }) => {
+  //       console.log("this is accesstoken");
+  //       console.log(accessToken);
+  //       return { profile, accessToken, extraParams };
+  //     }
+  //   )
+  // );
+
+  initAuth(context.cloudflare.env);
 
   return null;
 }

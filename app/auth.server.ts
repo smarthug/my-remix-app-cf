@@ -74,3 +74,22 @@ export const authenticator = new Authenticator<{
 //     }
 //   )
 // );
+
+
+export async function initAuth(env) {
+  console.log(env)
+  authenticator.use(
+    new GitHubStrategy(
+      {
+        clientID: env.GITHUB_CLIENT_ID,
+        clientSecret: env.GITHUB_CLIENT_SECRET,
+        callbackURL: new URL("/auth/github/callback", env.BASE_URL).toString(),
+      },
+      async ({ profile, accessToken, extraParams }) => {
+        console.log("this is accesstoken");
+        console.log(accessToken);
+        return { profile, accessToken, extraParams };
+      }
+    )
+  );
+}
