@@ -1,6 +1,13 @@
 name = "my-remix-app-cf"
 compatibility_date = "2024-03-29"
 
+
+[vars]
+GITHUB_CLIENT_ID="b093712bf12908b6bc29"
+GITHUB_CLIENT_SECRET="51932cf9847901a771754b15e465bd16208d1159"
+BASE_URL="https://my-remix-app-cf-d5q.pages.dev"
+
+
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.
 # Docs: https://developers.cloudflare.com/pages/functions/bindings/#environment-variables
