@@ -115,8 +115,8 @@ export async function initAuth(env) {
     {
       authorizationURL: "https://kauth.kakao.com/oauth/authorize",
       tokenURL: "https://kauth.kakao.com/oauth/token",
-      clientID: "YOUR_KAKAO_CLIENT_ID",
-      clientSecret: "YOUR_KAKAO_CLIENT_SECRET", // 필요한 경우
+      clientID: env.KAKAO_CLIENT_ID,
+      clientSecret: env.KAKAO_CLIENT_SECRET,
       callbackURL: new URL("/auth/kakao/callback", env.BASE_URL).toString(),
       // scope: ["profile_nickname", "profile_image", "account_email"], // 필요한 권한
     },
