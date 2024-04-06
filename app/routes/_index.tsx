@@ -8,7 +8,7 @@ import { initAuth } from "~/auth.server";
 // import { auth, sessionStorage } from "~/auth.server";
 
 export async function loader({ context }: LoaderFunctionArgs) {
-  console.log("this is context.env.GITHUB_CLIENT_ID");
+  // console.log("this is context.env.GITHUB_CLIENT_ID");
   // console.log(context.env.GITHUB_CLIENT_ID);
   // console.log(context); // GITHUB_CLIENT_ID = context.env.GITHUB_CLIENT_ID;
   // GITHUB_CLIENT_SECRET = context.env.GITHUB_CLIENT_SECRET;
@@ -48,6 +48,10 @@ export default function Index() {
 
       <Form action="/auth/kakao" method="post">
         <button>Login with Kakao</button>
+      </Form>
+
+      <Form action="/auth/line" method="post">
+        <button>Login with Line</button>
       </Form>
     </>
   );

@@ -35,8 +35,8 @@ import { FacebookStrategy } from "~/utils/auth/facebook";
 //   };
 
 export async function loader({ context }: LoaderFunctionArgs) {
-  console.log("this is context.env.GITHUB_CLIENT_ID");
-  console.log(context.cloudflare.env.GITHUB_CLIENT_ID);
+  // console.log("this is context.env.GITHUB_CLIENT_ID");
+  // console.log(context.cloudflare.env.GITHUB_CLIENT_ID);
   // GITHUB_CLIENT_ID = context.env.GITHUB_CLIENT_ID;
   // GITHUB_CLIENT_SECRET = context.env.GITHUB_CLIENT_SECRET;
   // BASE_URL = context.env.BASE_URL;
@@ -118,14 +118,34 @@ export async function initAuth(env) {
       clientID: env.KAKAO_CLIENT_ID,
       clientSecret: env.KAKAO_CLIENT_SECRET,
       callbackURL: new URL("/auth/kakao/callback", env.BASE_URL).toString(),
+      // scope: "email"
       // scope: ["profile_nickname", "profile_image", "account_email"], // 필요한 권한
     },
     async ({ profile, accessToken, extraParams }) => {
-      console.log("this is kakao accesstoken");
-      console.log(accessToken);
+      // console.log("this is kakao accesstoken");
+      // console.log(accessToken);
       return { profile, accessToken, extraParams };
     }
   );
 
   authenticator.use(kakaoStrategy, "kakao");
+
+  const lineStrategy = new OAuth2Strategy(
+    {
+      authorizationURL: "https://access.line.me/oauth2/v2.1/authorize",
+      tokenURL: "https://api.line.me/oauth2/v2.1/token",
+      clientID: env.LINE_CLIENT_ID,
+      clientSecret: env.LINE_CLIENT_SECRET,
+      callbackURL: new URL("/auth/line/callback", env.BASE_URL).toString(),
+      // scope: ["profile", "openid", "email"], // 필요한 권한
+    },
+    async ({ accessToken, refreshToken, profile, extraParams }) => {
+      console.log("this is line accesstoken");
+      console.log(accessToken);
+      // 사용자 인증 로직 (예: 데이터베이스 조회 및 사용자 세션 생성)
+      return profile; // 예제에서는 간단히 프로필을 반환
+    }
+  );
+
+  authenticator.use(lineStrategy, "line");
 }
