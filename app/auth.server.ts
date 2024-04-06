@@ -6,8 +6,9 @@ import { Authenticator } from "remix-auth";
 import type { GitHubExtraParams, GitHubProfile } from "remix-auth-github";
 import { GitHubStrategy } from "remix-auth-github";
 // import { FacebookStrategy } from "remix-auth-facebook";
+import { OAuth2Strategy } from "remix-auth-oauth2";
 import { FacebookStrategy } from "~/utils/auth/facebook";
-console.log(FacebookStrategy);
+// console.log(FacebookStrategy);
 
 // if (!process.env.GITHUB_CLIENT_ID) {
 //   throw new Error("GITHUB_CLIENT_ID is required");
@@ -102,10 +103,29 @@ export async function initAuth(env) {
         ).toString(),
       },
       async ({ profile, accessToken, extraParams }) => {
-        console.log("this is fb accesstoken");
-        console.log(accessToken);
+        // console.log("this is fb accesstoken");
+        // console.log(accessToken);
         return { profile, accessToken, extraParams };
       }
     )
   );
+
+  // 카카오에서 제공한 정보를 사용하여 설정
+  const kakaoStrategy = new OAuth2Strategy(
+    {
+      authorizationURL: "https://kauth.kakao.com/oauth/authorize",
+      tokenURL: "https://kauth.kakao.com/oauth/token",
+      clientID: "YOUR_KAKAO_CLIENT_ID",
+      clientSecret: "YOUR_KAKAO_CLIENT_SECRET", // 필요한 경우
+      callbackURL: new URL("/auth/kakao/callback", env.BASE_URL).toString(),
+      // scope: ["profile_nickname", "profile_image", "account_email"], // 필요한 권한
+    },
+    async ({ profile, accessToken, extraParams }) => {
+      console.log("this is kakao accesstoken");
+      console.log(accessToken);
+      return { profile, accessToken, extraParams };
+    }
+  );
+
+  authenticator.use(kakaoStrategy, "kakao");
 }

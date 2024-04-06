@@ -45,6 +45,10 @@ export default function Index() {
       <Form action="/auth/facebook" method="post">
         <button>Login with Facebook</button>
       </Form>
+
+      <Form action="/auth/kakao" method="post">
+        <button>Login with Kakao</button>
+      </Form>
     </>
   );
 }
