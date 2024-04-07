@@ -8,8 +8,8 @@ import { authenticator } from "~/auth.server";
 // }
 
 export async function action({ request }: ActionFunctionArgs) {
-  return authenticator.authenticate("github", request,{
-    // successRedirect: "/private",
-    // failureRedirect: "/",
+  return authenticator.authenticate("qq", request,{
+    successRedirect: "/private",
+    failureRedirect: "/",
   });
 };

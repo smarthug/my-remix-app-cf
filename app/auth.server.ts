@@ -85,8 +85,9 @@ export async function initAuth(env) {
         callbackURL: new URL("/auth/github/callback", env.BASE_URL).toString(),
       },
       async ({ profile, accessToken, extraParams }) => {
-        // console.log("this is accesstoken");
-        // console.log(accessToken);
+        
+        console.log("this is accesstoken");
+        console.log(accessToken);
         return { profile, accessToken, extraParams };
       }
     )
@@ -138,6 +139,7 @@ export async function initAuth(env) {
       clientSecret: env.LINE_CLIENT_SECRET,
       callbackURL: new URL("/auth/line/callback", env.BASE_URL).toString(),
       // scope: ["profile", "openid", "email"], // 필요한 권한
+      scope:"profile", // 필요한 권한
     },
     async ({ accessToken, refreshToken, profile, extraParams }) => {
       console.log("this is line accesstoken");
@@ -148,4 +150,20 @@ export async function initAuth(env) {
   );
 
   authenticator.use(lineStrategy, "line");
+
+
+
+  const qqStrategy = new OAuth2Strategy({
+    authorizationURL: "https://graph.qq.com/oauth2.0/authorize",
+    tokenURL: "https://graph.qq.com/oauth2.0/token",
+    clientID: env.QQ_CLIENT_ID,
+    clientSecret: env.QQ_CLIENT_SECRET,
+    callbackURL: new URL("/auth/qq/callback", env.BASE_URL).toString(),
+    // QQ OAuth는 추가적인 파라미터가 필요할 수 있음
+  }, async ({ accessToken, refreshToken, profile, extraParams }) => {
+    // 사용자 인증 로직 (예: 데이터베이스 조회 및 사용자 세션 생성)
+    return profile; // 예제에서는 간단히 프로필을 반환
+  });
+  
+  authenticator.use(qqStrategy,'qq');
 }

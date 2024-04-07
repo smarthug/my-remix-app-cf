@@ -3,9 +3,7 @@ import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { authenticator } from "~/auth.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-
-  // console.log(request);
-  return authenticator.authenticate("github", request, {
+  return authenticator.authenticate("qq", request, {
     successRedirect: "/private",
     failureRedirect: "/",
   });
