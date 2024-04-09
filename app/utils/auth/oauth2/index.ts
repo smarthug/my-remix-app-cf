@@ -173,6 +173,7 @@ export class OAuth2Strategy<
       });
     }
 
+     // 여기서 부터 서버에서 ....
     // Validations of the callback URL params
 
     let stateUrl = url.searchParams.get("state");
@@ -223,7 +224,7 @@ export class OAuth2Strategy<
       );
     }
 
-    // 여기서 부터 서버에서 ....
+   
     try {
       // Get the access token
 

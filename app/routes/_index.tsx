@@ -38,9 +38,9 @@ export async function loader({ context }: LoaderFunctionArgs) {
 export default function Index() {
   return (
     <>
-      <Form action="/auth/github" method="post">
+      {/* <Form action="/auth/github" method="post">
         <button>Login with GitHub</button>
-      </Form>
+      </Form> */}
 
       <Form action="/auth/facebook" method="post">
         <button>Login with Facebook</button>
@@ -50,9 +50,9 @@ export default function Index() {
         <button>Login with Kakao</button>
       </Form>
 
-      <Form action="/auth/line" method="post">
+      {/* <Form action="/auth/line" method="post">
         <button>Login with Line</button>
-      </Form>
+      </Form> */}
     </>
   );
 }
