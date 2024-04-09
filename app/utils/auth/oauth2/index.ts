@@ -369,7 +369,7 @@ export class OAuth2Strategy<
     if (!params.has("scope") && this.scope) {
       params.set("scope", this.scope);
     }
-
+    
     let url = new URL(this.authorizationURL);
     url.search = params.toString();
 
